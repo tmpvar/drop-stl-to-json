@@ -1,12 +1,40 @@
-var drop-stl-to-json = function() {
-  
-}
+var dndfiles = require('drag-and-drop-files')
+var readfile = require('filereader-stream')
+var stl = require('stl');
+var EventEmitter = require('events').EventEmitter;
+
+var drop = function(dropElement) {
+  var ee = new EventEmitter();
+
+  dndfiles(dropElement, function(files) {
+    ee.emit('dropped', files);
+
+    var pending = files.length;
+    files.forEach(function(file) {
+      var array = [], first = true;
+
+      readfile(file)
+        .pipe(stl.createParseStream())
+        .on('data', function(d) {
+          if (first) {
+            first = false;
+            return;
+          }
+
+          array.push(d);
+        })
+        .on('end', function() {
+          pending--;
+          ee.emit('file', array);
+          if (pending < 0) {
+            ee.emit('end');
+          }
+        });
+    });
+  });
+
+  return ee;
+};
 
 
-if (typeof module !== "undefined" && typeof module.exports == "object") {
-  module.exports = drop-stl-to-json;
-}
-
-if (typeof window !== "undefined") {
-  window.drop-stl-to-json = window.drop-stl-to-json || drop-stl-to-json;
-}
+module.exports = drop;
