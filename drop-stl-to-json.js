@@ -26,7 +26,7 @@ var drop = function(dropElement) {
         .on('end', function() {
           pending--;
           ee.emit('file', array);
-          if (pending < 0) {
+          if (pending <= 0) {
             ee.emit('end');
           }
         });
