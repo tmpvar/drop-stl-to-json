@@ -13,9 +13,11 @@ var drop = function(dropElement) {
     files.forEach(function(file) {
       var array = [], first = true;
 
-      readfile(file)
-        .pipe(stl.createParseStream())
-        .on('data', function(d) {
+      var stlstream = readfile(file).pipe(stl.createParseStream())
+
+      ee.emit('stream', stlstream);
+
+      stlstream.on('data', function(d) {
           if (first) {
             first = false;
             return;

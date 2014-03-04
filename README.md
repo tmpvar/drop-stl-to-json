@@ -21,6 +21,17 @@ require('domready')(function() {
     text.innerHTML = "working.."
   });
 
+  // fired upon the creation of an stl parser stream
+  // this is usefull if you want to handle the stream
+  // directly.
+  //
+  // Note: the first object emitted by this stream will
+  //       be meta info about the stl. you may want to
+  //       skip it
+  ee.on('stream', function(stlstream) {
+    // ....
+  });
+
   // X files may have been dropped, this fires for each
   // where array is an array of { normal:[], verts: [[x, y, z], ...]}
   ee.once('file', function(array) {
