@@ -1,0 +1,25 @@
+{
+  "name": "drop-stl-to-json",
+  "version": "0.1.0",
+  "description": "parse stl files dropped onto a dom element",
+  "keywords": [],
+  "main": "drop-stl-to-json.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmpvar/drop-stl-to-json.git"
+  },
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmpvar/drop-stl-to-json/issues"
+  },
+  "devDependencies": {
+    "mocha": "1.x",
+    "istanbul": "*"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha test/test.js -R spec",
+    "cover": "istanbul cover _mocha -- test/test.js -R spec",
+    "minify": "browserify -e drop-stl-to-json.js | uglifyjs > drop-stl-to-json.min.js"
+  }
+}
