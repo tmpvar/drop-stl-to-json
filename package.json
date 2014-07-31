@@ -1,6 +1,6 @@
 {
   "name": "drop-stl-to-json",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "parse stl files dropped onto a dom element",
   "keywords": [],
   "main": "drop-stl-to-json.js",
